@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios';
-import wallpaper from 'wallpaper'
+import wallpaper, { setWallpaper } from 'wallpaper'
 
 async function getBingImageOfTheDay(): Promise<string> {
   try {
@@ -17,9 +17,9 @@ async function getBingImageOfTheDay(): Promise<string> {
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
-      console.error('An error occurred:', axiosError.message);
+      console.error('An error occurred:', axiosError.message)
     } else {
-      console.error('An error occurred:', error);
+      console.error('An error occurred:', error)
     }
     throw error; // Re-throw the error to propagate it if necessary
   }
@@ -27,11 +27,12 @@ async function getBingImageOfTheDay(): Promise<string> {
 
 async function main() {
   try {
-    const imageUrl = await getBingImageOfTheDay();
-    // Implement the logic to set the wallpaper using platform-specific libraries or tools.
-    console.log('Bing image URL:', imageUrl);
+    const imageUrl = await getBingImageOfTheDay()
+    console.log('Bing image URL:', imageUrl)
+    await setWallpaper(imageUrl)
+    console.log('Wallpaper set successfully!')
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.error('An error occurred:', error)
   }
 }
 
